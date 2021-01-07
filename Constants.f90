@@ -1,10 +1,10 @@
  MODULE Constants
-!
-!--------------------------!
-! General parameter values !
-!--------------------------!
+
+!============================!
+!  GENERAL PARAMETER VALUES  !
+!============================!
    Integer, parameter :: resample = 2000 ! Number of resampling
-! Reservoir size (0 represents the reference value)
+! Reservoir size(0 represents the reference value)
    double precision, parameter ::   P0 = 3.1d15      ! Marine PO4 [molP]
    double precision, parameter ::   N0 = 43.5d15     ! Marine NO3 [molN]
    double precision, parameter ::   O0 = 37d18       ! O2 in the Ocean-Atmosphere [mol]
@@ -89,7 +89,7 @@
    double precision, parameter :: Wp0 = (Bcorg0/CPorg0+Bpfe0+Bpca0) / (1d0-k11) ! P weathering [molP/yr]
    double precision, parameter :: Pland0 = Wp0 * k11   ! P flux to terrestrial biosphere [molP/yr]
    double precision, parameter :: Tk0 = Tc0 + 273.15d0 ! Surface temp. [K]
-!
+
    double precision, parameter :: gmolN2 = 28d0    ! g/mol
    double precision, parameter :: gmolO2 = 32d0    ! g/mol
    double precision, parameter :: gmolAr = 40d0    ! g/mol
@@ -111,13 +111,16 @@
    double precision, parameter :: Rearth = 6.4d6  ! m
    double precision, parameter :: gravity = 9.8d0 ! m/s^2
    double precision, parameter :: const = gravity / (4d0*pi*Rearth**2d0) * 1d-3 / 1.013d5
-!
+
+!========================!
+!  FITTING COEFFICIENTS  !
+!========================!
    double precision, parameter :: a1ch4 = 0.0030084d0
    double precision, parameter :: a2ch4 =-0.1655405d0
    double precision, parameter :: a3ch4 = 3.2305351d0
    double precision, parameter :: a4ch4 =-25.8343054d0
    double precision, parameter :: a5ch4 = 71.5397861d0
-!
+
    double precision, parameter :: a1  = 9.12805643734088612007d0
    double precision, parameter :: a2  = 4.58408794776474781685d0
    double precision, parameter :: a3  =-84.7261075511868995136d0
@@ -169,7 +172,7 @@
    double precision, parameter :: b33 =-0.109384840764980617589d0
    double precision, parameter :: b34 = 2.92643187434628071486d0
    double precision, parameter :: b35 =-427.802454850920923946d0
-!
+
 !  Williams and Kasting (1997) :: TOA (190 K < T < 280 K)
    double precision, parameter :: z1  =-0.68910d0
    double precision, parameter :: z2  = 1.0460d0
@@ -223,7 +226,7 @@
    double precision, parameter :: x18 =-1.631909d-4
    double precision, parameter :: x19 = 3.663871d-6
    double precision, parameter :: x20 =-9.255646d-9
-!
+
    double precision, parameter :: p00 = 1.712d0
    double precision, parameter :: p10 =-0.3212d0
    double precision, parameter :: p01 =-1.97d0
@@ -340,14 +343,14 @@
    double precision, parameter :: c1h23 =-0.97218386d0
    double precision, parameter :: c2h23 = 0.10592109d0
    double precision, parameter :: c3h23 = 0.00207026d0
-!
+
 !  Byrne and Goldblatt (2014)
    double precision, parameter :: m1 = 1173d0
    double precision, parameter :: m2 = 71636d0
    double precision, parameter :: m3 = 0.824d0
    double precision, parameter :: m4 = 0.8d0
    double precision, parameter :: m5 = 0.2d0
-!
+
    double precision, parameter :: rho = 1025d0 ! Density of seawater [kg/m3]
    double precision, parameter :: Sal = 35d0   ! Salinity
    double precision, parameter :: Vocn = 1.38d18 ! Ocean volume [m3]
@@ -355,7 +358,7 @@
 
    double precision, parameter :: Kco2  = 0.06d0
    double precision, parameter :: Khco3 = 0.05d0
-!
+
 !  f_H2O vs Temperature (Wolf et al., 2017)
    double precision, parameter :: fesc0 = 198.34d0
    double precision, parameter :: fesc1 =-1.6856d0
@@ -363,9 +366,9 @@
    double precision, parameter :: fesc3 =-2.7947d-6
    double precision, parameter :: fesc = 2.5d13/3.74d-3 ! [mol/yr]
    double precision, parameter :: MocnH2O = 7.8d22 ! [mol]
-!
+
    double precision, parameter :: cfeox0 = 0.9713d0
    double precision, parameter :: cfeox1 =-0.1095d0
    double precision, parameter :: cfeox2 =-0.0737d0
-!
+
  END MODULE Constants

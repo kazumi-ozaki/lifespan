@@ -19,16 +19,16 @@
 !
     Implicit None
 !
-!-----------------------!
-! Variable declaration  ! See also XXX.xlsx for the meaning of each variable.
-!-----------------------!
-  ! General !
+!=======================!
+! VARIABLE DECLARATION  !  See also XXX.xlsx for the meaning of each variable.
+!=======================!
+! GENERAL
     Integer:: I,max,Icount,Icount2,Icount3,Ij,Ij2,Ioutput,Imc,Ierror
     Integer:: Ianimal,Ioae,I1pPAL,Iozone,judge,Ihuman,Ihuman2,Ihuman3
     Integer:: Ic1pPAL,Ic10pPAL,Ichuman,Ichuman2,Ichuman3,Isucc,Isuc2
     Parameter(max = 20e8)
     double precision:: age,dt,Time,sTime,t1,t2,dammy
-  ! Reservoir !
+! RESERVOIR
     double precision:: P(2),N(2),O(2),A(2),G(2),C(2),S(2),PYR(2),GYP(2),CAL(2),ALK(2)
     double precision:: P_success(600),N_success(600),O_success(600),A_success(600)
     double precision:: G_success(600),C_success(600),S_success(600),PYR_success(600)
@@ -38,7 +38,7 @@
     double precision:: pO2(2),pO20ma,mO2(2),mO20ma
     double precision:: pCH4(2),pCH4c,Mch4(2),Mch40,Mch40ma
     double precision:: Patm,m_CH4(2),Matm_mol,Matm_CO2,Patm_success(600)
-! Flux !
+! FLUX
     double precision:: Rp,Wp,Bp,Bporg,Bpfe,Bpca,Fnfix,Fdeni,Bnorg,Bcorg,Btcorg
     double precision:: Worg,Fmorg,Wsil,Wcarb,Fmcarb,Bcarb,Bpyr,Wpyr,Bgyp,Wgyp
     double precision:: Rp_success(600),Wp_success(600),Bporg_success(600),Bpfe_success(600),Bpca_success(600)
@@ -51,16 +51,16 @@
     double precision:: DelC,DelP,delAs(2),delPYRs(2),delGYPs(2),DelS
     double precision:: d34S(2),d34Spyr(2),d13C(2),d13Corg(2)
     double precision:: d34S_success(600),d34Spyr_success(600),d13C_success(600),d13Corg_success(600)
-! Forcing !
+! FORCING
     double precision:: fG,fR,fP,fE,fC,fpP
     double precision:: G1,G2,R1,R2,P1,P2,E1,E2,C1,C2,PP1,PP2
     double precision:: tfe1,tfe2,tfp1,tfp2,tfpP1,tfpP2
     double precision:: fG_success(600),fR_success(600),fP_success(600),fE_success(600),fC_success(600),fpP_success(600)
-! Climate !
+! CLIMATE
     double precision:: Tc,Tk,Teff,dTk,albedo,Sun,psi
     double precision:: TOA,poly,f1,f2,f3,Tk1,Tk2,Tk3,pln
     double precision:: Sun_success(600),albedo_success(600),TOA_success(600),jOLR_success(600),radforce_CH4_success(600)
-
+!
     double precision:: V,Vnpp,VnppO2,VnppCO2,VnppT,VnppCO2_c3,VnppCO2_c4
     double precision:: V_success(600),Vnpp_success(600),VnppO2_success(600),VnppCO2_success(600),VnppT_success(600)
     double precision:: ignit_success(600),fire_success(600)
@@ -74,7 +74,7 @@
     double precision:: kch4ox,kch4ox_6,kch4ox_5,kch4ox_4,kch4ox_3,kch4ox_23
     double precision:: phi_o2,phi_ch4,Mo2_ox,Mch4_ox
     double precision:: fo2_success(600),fch4_success(600),go2_success(600),gch4_success(600),Jch4t_success(600)
-! Monte Carlo analysis !
+! MONTE CARLO ANALYSIS
     double precision:: nG,mG,aG,tauG,aR,tauR
     double precision:: JsbdCorg,JsbdSpyr,JsbdFeox,JmanC,JmanS,JmanRed,JsbdCarb,JsbdSgyp
     double precision:: JsbdCorg0,JsbdSpyr0,JsbdFeox0,JsbdCarb0,JsbdSgyp0,JmanC0,JmanS0,JmanRed0
@@ -119,10 +119,10 @@
     double precision:: Jsbd0Ma,Jesc0Ma,Jman0Ma
     double precision:: f_H2O,Jesc_H2O,Jesc_CH4,t_ocn
     double precision:: f_H2O_success(600),Jesc_H2O_success(600),Jesc_CH4_success(600),t_ocn_success(600)
-!
-!------------------------!
-!  Opening output files  !
-!------------------------!
+
+!=======================!
+! OPENING OUTPUT FILES  !
+!=======================!
     Open(10,file='output/all.dat')          ! All story
     Open(11,file='output/success.dat')      ! Success story
     Open(12,file='output/failure.dat')      ! Failure story
@@ -148,10 +148,10 @@
     open(32,file='output/Lifespan_1e-6%PAL.dat')
 
 !
-!-------------------------!
-! Monte Carlo simulation  !
-!-------------------------!
-  ! Preparation !
+!=========================!
+! MONTE CARLO SIMULATION  !
+!=========================!
+! PREPARATION
     Call RANDOM(nG_rnd,mG_rnd,aG_rnd,tauG_rnd,aR_rnd,tauR_rnd                          &
                ,JsbdCorg0_rnd,JsbdSpyr0_rnd,JsbdFeox0_rnd,JsbdCarb0_rnd,JsbdSgyp0_rnd  &
                ,JmanC0_rnd,JmanS0_rnd,JmanRed0_rnd                                     &
@@ -161,7 +161,7 @@
 !
     Do Imc = 1, resample !------------------ Start Monte Carlo simulation-------------------------!
 !     Do Imc = 1, 1
-    ! Setting up MC analysis !
+! SETTING UP MC ANALYSIS
       Call SETUP(Imc,JsbdCorg0,JsbdSpyr0,JsbdCarb0,JsbdSgyp0,JmanC0,JmanS0,JmanRed0   &
                 ,JsbdCorg0_rnd,JsbdSpyr0_rnd,JsbdCarb0_rnd,JsbdSgyp0_rnd              &
                 ,JmanC0_rnd,JmanS0_rnd,JmanRed0_rnd                                   &
@@ -172,7 +172,10 @@
                 ,Fmcarb0,Worg0,Bgyp0,Bpyr0                                            &
                 ,aG,aR,tauG,tauR,nG,mG,fUV,Tref,Tref_land,LIFE,FERT,ACT               &
                 ,Pmin,Kp,RUNsil,CPanoxic,dOLR,dTOA) 
-    ! Opening input files
+
+!======================!
+! OPENING INPUT FILES  !
+!======================!
       open( 1,file = 'input/fC.dat')
       open( 2,file = 'input/fR.dat')
       open( 3,file = 'input/fG.dat')
@@ -210,8 +213,10 @@
       fE_success(1) = fE
       fP_success(1) = fP
       fpP_success(1) = fpP
-!
-    ! Initialization  !
+
+!=================!
+! INITIALIZATION  !
+!=================!
       Call INIT(Imc,CPland,CNorg,Tk,Tc,DelP,Bcarb,f_H2O,Jesc_H2O,P,N,O,A,G,C,S,PYR,GYP,CAL,ALK   &
                ,Corg0_rnd,Carb0_rnd,Spyr0_rnd,Sgyp0_rnd,P_success,N_success,O_success,A_success  &
                ,G_success,C_success,S_success,PYR_success,GYP_success,CAL_success,ALK_success    &
@@ -237,17 +242,18 @@
                ,Ioae,I1pPAL,Iozone,judge,Ichuman,Ichuman2,Ichuman3,Ic1pPAL,Ic10pPAL,Icount3      &
                ,Isucc,Isuc2,sumJred,sumTime,sumGRBexo,sumJman,sumJsbd,Time,sTime,Ij,Ij2,Ioutput  &
               ,kch4ox,kch4ox_6,kch4ox_5,kch4ox_4,kch4ox_3,kch4ox_23,dt,Fmcarb0,Worg0,Bgyp0,Bpyr0)
-               pCO2bar = pCO2(1)*1d-6/0.987d0
-               pln = dlog(pCO2(1)/0.987d0/330d0)
-               TOA_success(1) = TOA_high(a00,Tk,pCO2bar,dTOA)
-               jOLR_success(1) = jOLR(pln,Tk,dOLR)
-               radforce_CH4_success(1) = radforce_CH4(pCH4)
+      pCO2bar = pCO2(1)*1d-6/0.987d0
+      pln = dlog(pCO2(1)/0.987d0/330d0)
+      TOA_success(1) = TOA_high(a00,Tk,pCO2bar,dTOA)
+      jOLR_success(1) = jOLR(pln,Tk,dOLR)
+      radforce_CH4_success(1) = radforce_CH4(pCH4)
 !  
-!---------------------------------------------------------------------------------------------------------!
-!   Time Evolution                                                                                        !
-!---------------------------------------------------------------------------------------------------------!
+!_________________________________________________________________________________________________________!
+!                                                                                                         !
+!   TIME EVOLUTION                                                                                        !
+!_________________________________________________________________________________________________________!
     Do  !--------------------------------- Start Time Evolution ------------------------------------------!
-    ! Time measurement with a variable timestep !
+! Time measurement with a variable timestep !
       If(pO2(1) >= pO20*0.005d0) then
         dt = 10d0
         Icount = Int(1d6/dt)
@@ -262,10 +268,10 @@
         Ij2 = Ij2+1
       End If
       sTime = sTime + dt
-!
-!----------!
-! Lifespan !
-!----------!
+
+!============!
+!  LIFESPAN  !
+!============!
     If(sTime >= 0d0) then
     ! Lifespan >18% !
       If((Ichuman == 0).and.(mO2(1) < 0.18d0)) then
@@ -322,11 +328,11 @@
         Go to 9998
       End If
     End If
-!
-!-----------!
-!  Forcing  !
-!-----------!
-! Update
+
+!===========!
+!  FORCING  !
+!===========!
+!  Update
     If(Time < -1d6) then
       If(Ij == Icount) then
         R1 = R2
@@ -456,16 +462,16 @@
         tfpP1 = time
         tfpP2 = tfpP2*1d6
       End If
-!
+
       fG  = (G2-G1)/1d6*(sTime-t1) + G1                  ! fG
       fP  = (P2-P1)/(tfp2-tfp1)*(sTime-tfp1) + P1        ! fP
       fR  = (R2-R1)/1d6*(sTime-t1) + R1                  ! fR
       fE  = (E2-E1)/(tfe2-tfe1)*(sTime-tfe1) + E1        ! fE
       fC  = (C2-C1)/10d6*(sTime-t1) + C1                 ! fC
       fpP = (PP2-PP1)/(tfpP2-tfpP1)*(sTime-tfpP1) + PP1  ! fpP
-!
+
     Else
-!
+
       fG  = (1d0+aG+aG*dsin(2d0*pi*(stime/1d6-tauG/4d0)/tauG)) &
             *((1d0+stime/1d6/4500d0)**(-nG))**mG
       fP  = 1d0
@@ -474,7 +480,7 @@
       fE  = 1d0
       fC  = 1d0
       fpP = 1d0
-!
+
       If(Ij == Icount) then
         Ioutput = 1
         Time = Time + 1d6
@@ -482,14 +488,14 @@
         Ij = 0
       End If
     End If
-!
-!-------------!
-!  Judgement  !
-!-------------!
+
+!=============!
+!  JUDGEMENG  !
+!=============!
     If(Time == 0d0) then
-      !---------------------------------------------------------------------!
-      ! pO2 = 19-23%, pCO2 = 150-450 ppmv, [SO4] = 10-40 mM, T = 286-290 K  !
-      !---------------------------------------------------------------------!
+!---------------------------------------------------------------------!
+! pO2 = 19-23%, pCO2 = 150-450 ppmv, [SO4] = 10-40 mM, T = 286-290 K  !
+!---------------------------------------------------------------------!
       If((mO2(1) > 0.22d0).or.(mO2(1) < 0.20d0)                   &
         .or.(S(2)/Mocean*1d3 < 10d0).or.(S(2)/Mocean*1d3 > 40d0)  &
         .or.(mCO2(1) > 4.5d-4).or.(mCO2(1) < 1.5d-4)              &
@@ -586,30 +592,30 @@
         End If
       End If
     End If
-!
-!-----------!
-! Integrate !
-!-----------!
+
+!=============!
+!  INTEGRATE  !
+!=============!
     If(sTime >= 0d0) then
       sumJred = sumJred + (JsbdCorg + 2d0*JsbdSpyr -0.25d0*JsbdFeox -2d0*JmanS -JmanRed) * dt
       sumJman = sumJman + (-2d0*JmanS -JmanRed) * dt
       sumJsbd = sumJsbd + (JsbdCorg + 2d0*JsbdSpyr -0.25d0*JsbdFeox) * dt
     End If
-!
-!------------------!
-!  Energy balance  !
-!------------------!
-  ! Solar constant !
+
+!=================!
+!  CLIMATE MODEL  !
+!=================!
+!  Solar constant !
     Sun = Sun0 / (1d0-0.38d0*sTime/tau) ! [W/m2]
-      If(sTime <= -550d6) then
-        Sun = Sun0 / (1d0-0.38d0*(-550d6)/tau)
-      End If
-!
+    If(sTime <= -550d6) then
+      Sun = Sun0 / (1d0-0.38d0*(-550d6)/tau)
+    End If
+
     pCO2bar = pCO2(1)*1d-6/0.987d0      ! 1 bar = 0.987 atm
     psi = dlog10(pCO2bar)               ! log[pCO2(bar)]
     pln = dlog(pCO2(1)/0.987d0/330d0)   ! log[pCO2(PAL)]
-!
-  ! Bisection method --------------------- Start ---------------------------------------------!
+
+! Bisection method____________________________________ START __________________________________________!
     If(sTime == -600d6) then
       Tk1 = 273d0                       ! Initial value for the lower bound
       Tk2 = 355d0                       ! Initial value for the upper bound
@@ -641,7 +647,7 @@
           Go to 9998
         End If
         Tk3 = (Tk1+Tk2)/2d0
-      ! Lower Temp
+    ! Lower Temp
         albedo = albedo_T(Tk1)
         If(Tk1 <= 280d0) then
           TOA = TOA_low(albedo,Tk1,pCO2bar,dTOA)
@@ -650,7 +656,7 @@
         End If
         ! Energy balance check
         f1 = (1d0-TOA)*Sun/4d0 - jOLR(pln,Tk1,dOLR) + radforce_CH4(m_CH4)
-      ! Higher Temp
+    ! Higher Temp
         albedo = albedo_T(Tk2)
         If(Tk2 <= 280d0) then
           TOA = TOA_low(albedo,Tk2,pCO2bar,dTOA)
@@ -659,7 +665,7 @@
         End If
         ! Energy balance check
         f2 = (1d0-TOA)*Sun/4d0 - jOLR(pln,Tk2,dOLR) + radforce_CH4(m_CH4)
-      ! Centered Temp
+    ! Centered Temp
         albedo = albedo_T(Tk3)
         If(Tk3 <= 280d0) then
           TOA = TOA_low(albedo,Tk3,pCO2bar,dTOA)
@@ -668,7 +674,7 @@
         End If
         ! Energy balance check
         f3 = (1d0-TOA)*Sun/4d0 - jOLR(pln,Tk3,dOLR) + radforce_CH4(m_CH4)
-      ! Updating
+    ! Updating
         If(f1*f3 < 0d0) then
           Tk2 = Tk3
         Else If(f2*f3 < 0d0) then
@@ -696,7 +702,7 @@
         Go to 9998
       End If
     End Do
-  ! Bisection method ----------------------- End ----------------------------------------------!
+! Bisection method _____________________________________ END ___________________________________________!
       Tk = Tk3
       If(Tk <= 270d0) then
         write(*,*) 'T < 270K!: ',Tk
@@ -719,53 +725,57 @@
         Go to 9998
       End If
       Tc = Tk - 273.15d0
-!
-!----------------------------------------------------------------------!
-! Abiotic O2 production via H2O photolysis based on Wold et al. (2017) !
-!----------------------------------------------------------------------!
-  ! Mixing ratio of H2O in the stratosphere
+
+!============================================!
+!  ABIOTIC O2 PRODUCTION VIA H2O PHOTOLYSIS  ! Wold et al. (2017) 
+!============================================!
+!  Mixing ratio of H2O in the stratosphere
     f_H2O = 10d0**(fesc0 + fesc1*Tk + fesc2*Tk*Tk + fesc3*Tk**3d0)
-  ! H escape rate via H2O photolysis
+!  H escape rate via H2O photolysis
     Jesc_H2O = fesc * f_H2O ! [molH2/yr]
-  ! Timescale of ocean loss
+!  Timescale of ocean loss
     t_ocn = MocnH2O/Jesc_H2O ! [yr]
-!
-!------------------!
-!  Land biosphere  !
-!------------------!
-  ! O2-effect
+
+!==================!
+!  LAND BIOSPHERE  !
+!==================!
+! O2-effect
     VnppO2 = 1.5d0 - 0.5d0*O(1)/O0
-  ! CO2-effect
+! CO2-effect
     VnppCO2= (pCO2(1)-Pmin) / (Kp+pCO2(1)-Pmin)
       If(VnppCO2 < 0d0) then
         VnppCO2 = 0d0
       End If
-  ! Temperature-effect
+! Temperature-effect
     VnppT = 1d0 - ((Tc-25d0)/Tref_land)**2d0
       If(VnppT <= 0d0) then
         VnppT = 0d0
       End If
-  ! NPP w/o fire-effect
+! NPP w/o fire-effect
     Vnpp = 2d0 * fP * VnppO2 * VnppCO2 * VnppT
-  ! Land biomass with fire-effect
+! Land biomass with fire-effect
     V = Vnpp * kfire / (kfire-1d0+ignit(mO2))
-  ! Landbiomass with UV-effect
+! Landbiomass with UV-effect
     V = V * dtanh(pO2(1)/pO20/fUV)
-  ! NPP of terrestrial biosphere (NPPt0 = 5000 TmolC/yr)
+! NPP of terrestrial biosphere (NPPt0 = 5000 TmolC/yr)
     NPPland = NPPt0 * V
-!
-!-----------------------------------!
-!  Weathering and debassing fluxes  !
-!-----------------------------------!
-  ! CO2 degassing flux via carbonate metamorphism
+
+!=============!
+!  DEGASSING  !
+!=============!
+!  CO2 degassing flux via carbonate metamorphism
     Fmcarb = Fmcarb0 * fG * fC * C(1)/C0
-  ! CO2 degassing flux from organic C metamorphism
+!  CO2 degassing flux from organic C metamorphism
     Fmorg = Fmorg0 * fG * G(1)/G0
-  ! Mantle degassing
+!  Mantle degassing
     JmanC = JmanC0 * fG     ! CO2
     JmanS = JmanS0 * fG     ! H2S
     JmanRed = JmanRed0 * fG ! Reducing gases (e.g., H2)
-  ! Silicate weathering
+
+!==============!
+!  WEATHERING  !
+!==============!
+!  Silicate weathering
       mvw = V * fE
       If(mvw >= 1d0) then
         mvw = 1d0
@@ -775,21 +785,21 @@
       fplant = fT * (2d0*Rco2/(1+Rco2))**FERT
       fco2   = fpre*(1d0-mvw) + fplant*mvw
     Wsil = Wsil0 * fR * fco2 * (LIFE+(1d0-LIFE)*fE*V)
-  ! Carbonate weathering
+!  Carbonate weathering
       gT     = 1d0 + RUNcarb*(Tc-Tc0)
       gpre   = gT * Rco2**0.5d0
       gplant = gT * (2d0*Rco2/(1d0+Rco2))**FERT
       gco2   = gpre*(1d0-mvw) + gplant*mvw
     Wcarb = Wcarb0 * fR * gco2 * (LIFE+(1d0-LIFE)*fE*V)
-  ! Oxidative weatheirng of organic C
+!  Oxidative weatheirng of organic C
     Worg  = Worg0 * fR * G(1)/G0 * (O(1)/O0)**0.5d0
-  ! Gypsum weathering
+!  Gypsum weathering
     Wgyp  = Wgyp0 * GYP(1)/GYP0 * Wcarb/Wcarb0
-  ! Oxidative weatherign of pyrite S
+!  Oxidative weatherign of pyrite S
     Wpyr  = Wpyr0 * fR * PYR(1)/PYR0 * (O(1)/O0)**0.5d0
-  ! Phosphorus weathering
+!  Phosphorus weathering
     Wp = Wp0 * (2d0/12d0*Wsil/Wsil0+5d0/12d0*Wcarb/Wcarb0+5d0/12d0*Worg/Worg0) * fpP
-  ! P cycle on land
+!  P cycle on land
     L = k11 * V        ! Fraction of P to terrestrial biosphere
     Pland = L * Wp     ! P flux to terrestrial biosphere
     Rp = (1d0-L) * Wp  ! P flux to the ocean
@@ -800,14 +810,15 @@
     Else
       CPland = CPland0
     End If
-    BtCorg = CPland * Pland  ! Corg burial on land (= C/P x Pflux)
-  ! CH4 flux from the terrestrial biosphere to the atmosphere
+!  Corg burial on land (= C/P x Pflux)
+    BtCorg = CPland * Pland
+!  CH4 flux from the terrestrial biosphere to the atmosphere
     Jch4t = Jch4t0 * (BtCorg/BtCorg0) * a_ch4 * dexp(b_ch4*Tc/Tc0) ! Jch4t0 = 1 Tmol/yr
-!
-!---------------!
-!  Ocean model  !
-!---------------!
-  ! New production [umolC/kg]
+
+!=========================!
+!  OCEAN BIOGEOCHEMISTRY  !
+!=========================!
+!  New production [umolC/kg]
     Po = rCP * N(1)/rNP / Mocean*1d6   ! N-limited productivity [umolC/kg]
       If(N(1)/rNP >= P(1)) then
         Po = rCP * P(1) / Mocean*1d6   ! P-limited productivity
@@ -816,9 +827,9 @@
         Po = (Cco2+Chco3) / rho*1d6    ! CO2-limited productivity
       End If
     Po = Po * const2 * fTmarine(Tc,Tref)    ! Temperature effect
-  ! Oceanic NPP (NPP0 = 3750 TmolC/yr; Po0 = 225.96)
+!  Oceanic NPP (NPP0 = 3750 TmolC/yr; Po0 = 225.96)
     NPPocean = NPP0 * (Po/Po0)
-  ! Degree of Anoxia
+!  Degree of Anoxia
     DOA = 1d0 - (1d0-DOA0)*(O(1)/O0)*(Po0/Po)
       If(DOA <= 0d0) then
         DOA = 0d0
@@ -826,16 +837,16 @@
       If(DOA >= 1d0) then
         DOA = 1d0
       End If
-  ! Nitrogen fixation [molN/yr]
+!  Nitrogen fixation [molN/yr]
     Fnfix = Fnfix0 * ((P(1)-N(1)/rNP)/(P0-N0/rNP))**2d0
       If(Fnfix <= 0d0) then
         Fnfix = 0d0
       End If
-  ! Denitrification [molN/yr]
+!  Denitrification [molN/yr]
     Fdeni = Fdeni0 * (1d0+DOA/DOA0) / 2d0
-  ! Corg burial [molC/yr]
+!  Corg burial [molC/yr]
     Bcorg = Bcorg0 * (Po/Po0)**2d0
-  ! Corg remineraliztion
+!  Corg remineraliztion
     Frem  = NPPocean - Bcorg   ! in the ocean
     Fremt = NPPland  - Btcorg  ! on the land
     fo2   = gamma              ! 
@@ -853,45 +864,51 @@
       gch4 = 0d0
     End If
     go2 = 1d0 - gch4
-  ! Norg burial [molN/yr]
+!  Norg burial [molN/yr]
     Bnorg = Bcorg / CNorg
-  ! Corg/Porg ratio of buried sediments
+!  Corg/Porg ratio of buried sediments
     CPorg = CPoxic * CPanoxic / ((1d0-DOA)*CPanoxic+DOA*CPoxic)
-  ! P burial flux [molP/yr]
+!  P burial flux [molP/yr]
     Bporg = Bcorg / CPorg                  ! Organic P
     Bpfe  = Bpfe0 * (1d0-DOA) / (1d0-DOA0) ! Fe-bound P
     Bpca  = Bpca0 * (Po/Po0)**2d0          ! Authigenic P
     Bp    = Bporg + Bpfe + Bpca            ! Total burial flux
-  ! Pyrite burial flux [molS/yr]
+!  Pyrite burial flux [molS/yr]
     Bpyr = Bpyr0 * S(1)/S0 * Bcorg/Bcorg0 * O0/O(1)
-  ! Gypsum deposition flux [molS/yr]
+!  Gypsum deposition flux [molS/yr]
     Bgyp = Bgyp0 * S(1)/S0 * CAL(1)/CAL0
-  ! Corg subduction flux [molC/yr]
+
+!===================!
+!  SUBDUCTION FLUX  !
+!===================!
+!  Corg subduction flux [molC/yr]
     JsbdCorg = JsbdCorg0 * Bcorg/Bcorg0 * fG
-  ! Spyr subduction flux [molS/yr]
+!  Spyr subduction flux [molS/yr]
     JsbdSpyr = JsbdSpyr0 * Bpyr/Bpyr0 * fG
-  ! Sgyp subduction flux [molS/yr]
+!  Sgyp subduction flux [molS/yr]
     JsbdSgyp = JsbdSgyp0 * Bgyp/Bgyp0 * fG
-  ! Fe(OH)3 subduction flux [molFe/yr]
+!  Fe(OH)3 subduction flux [molFe/yr]
     JsbdFeox = JsbdFeox0 * fG * (1d0-DOA) / (1d0-DOA0)
-  ! CaCO3 subduction flux [molC/yr]
+!  CaCO3 subduction flux [molC/yr]
     JsbdCarb = JsbdCarb0 * Bcarb/Bcarb0 * fG
-!
-! Global Redox Budget [mol O2 equiv./yr]
+
+!==========================================!
+!  GLOBAL REDOX BUDGET [mol O2 equiv./yr]  !
+!==========================================!
     GRBaos  =  0.5d0*Jesc_CH4 + 0.5d0*Jesc_H2O + Bcorg + Btcorg  &
              + 2d0*Bpyr - Worg - Fmorg - 2d0*Wpyr                &
              - 2d0*JmanS - JmanRed - 0.25d0*JsbdFeox
     GRBsurf =  0.5d0*Jesc_CH4 + 0.5d0*Jesc_H2O + JsbdCorg        &
              + 2d0*JsbdSpyr - 0.25d0*JsbdFeox - 2d0*JmanS - JmanRed
-!
-!---------------!
-! Mass balance  !
-!---------------!
-  ! PO4
+
+!================!
+!  MASS BALANCE  !
+!================!
+!  PO4
     P(2) = P(1) + dt*(Rp - Bp)
-  ! NO3
+!  NO3
     N(2) = N(1) + dt*(Fnfix - Fdeni - Bnorg)
-  ! O2 & CH4
+!  O2 & CH4
     sFo2 =  NPPocean - fo2*Frem -delta*fch4*Frem    &
           + NPPland - go2*Fremt - delta*gch4*Fremt  &
           - Worg - Fmorg + 2d0*Bpyr - 2d0*Wpyr      &
@@ -901,55 +918,55 @@
            + 0.5d0*gch4*Fremt - 0.5d0*delta*gch4*Fremt  &
            - 0.5d0*Jesc_CH4
     ! Implicit scheme for the photochemical reaction
-      ! Reaction rate (Claire et al., 2006 Geobiology)
+    ! Reaction rate (Claire et al., 2006 Geobiology)
       Call PHOTOCHEM(pO2,pCH4,phi_o2,phi_ch4,kch4ox_6,kch4ox_5,kch4ox_4,kch4ox_3,kch4ox_23,kch4ox)
       a_o2ch4 = dt*kch4ox
       b_o2ch4 = 1d0-(O(1)+dt*sFo2)*dt*kch4ox+2d0*dt*kch4ox*(Mch4(1)+dt*sFch4)
       c_o2ch4 = -O(1)-dt*sFo2
       O(2) = (-b_o2ch4+dsqrt(b_o2ch4**2d0-4d0*a_o2ch4*c_o2ch4))/(2d0*a_o2ch4)
       Mch4(2) = (Mch4(1)+dt*sFch4)/(1d0+dt*kch4ox*O(2))
-  ! Respiration pathway
+!  Respiration pathway
     gamma = O(2) / (O(2)+dr)
     delta = O(2) / (O(2)+dd)
-  ! Inorganic C
+!  Inorganic C
     A(2) = A(1) + dt*(Worg + Fmorg + Wcarb + Fmcarb - Bcarb                             &
                      - NPPocean + fo2*Frem + 0.5d0*fch4*Frem + 0.5d0*delta*fch4*Frem    &
                      - NPPland + go2*Fremt + 0.5d0*gch4*Fremt + 0.5d0*delta*gch4*Fremt  &
                      + kch4ox*O(1)*Mch4(1) + 0.5d0*Jesc_CH4 + JmanC)
-  ! Crustal organic C
+!  Crustal organic C
     G(2) = G(1) + dt*(Btcorg + Bcorg - Worg - Fmorg - JsbdCorg)
     If(G(2) <= 0d0) then
        G(2) = 0d0
     End If
-  ! Crustal CaCO3
+!  Crustal CaCO3
     C(2) = C(1) + dt*(Bcarb - Wcarb - Fmcarb - JsbdCarb)
     If(C(2) <= 0d0) then
       C(2) = 0d0
     End If
-  ! Seawater SO4
+!  Seawater SO4
     S(2) = S(1) + dt*(Wgyp + Wpyr - Bgyp - Bpyr + JmanS)
     If(S(2) <= 0d0) then
       S(2) = 0d0
     End If
-  ! Crustal pyrite
+!  Crustal pyrite
     PYR(2) = PYR(1) + dt*(Bpyr - Wpyr - JsbdSpyr)
     If(PYR(2) <= 0d0) then
       PYR(2) = 0d0
     End If
-  ! Crustal gypsum
+!  Crustal gypsum
     GYP(2) = GYP(1) + dt*(Bgyp - Wgyp - JsbdSgyp)
     If(GYP(2) <= 0d0) then
       GYP(2) = 0d0
     End If
-  ! Ca2+ [mol]
+!  Ca2+ [mol]
     CAL(2) = CAL(1) + dt*(Wsil + Wcarb + Wgyp - Bcarb - Bgyp)
     If(CAL(2) <= 0d0) then
       CAL(2) = 0d0
     End If
     Cca = CAL(2) / Vocn ! [mol/m3]
-  ! Alkalinity
+!  Alkalinity
     ALK(2) = ALK(1) + dt*2d0*(Wsil + Wcarb - Bcarb)
-  ! Carbonate system
+!  Carbonate system
     K0 = dexp(lnK0(Tk))          ! CO2 solubility
     K1 = 10d0**logK1(Tk)         ! K1 [mol/kg]
     K2 = 10d0**logK2(Tk)         ! K2 [mol/kg]
@@ -968,9 +985,9 @@
     ffhco3= Chco3 / (Cco2+Chco3)
     fco2limit = (Cco2+Chco3) / (Cco2+Chco3+Kco2*ffco2+Khco3*ffhco3)
     Omega = Cca * Cco3 / (rho*rho*KspCal) ! Degree of CaCO3 saturation
-  ! CaCO3 burial
+!  CaCO3 burial
     Bcarb = 3d12 * (Omega-1d0)**ncal
-  ! Atmospheric composition
+!  Atmospheric composition
     a_ = const * gmolCO2
     b_ = const * (Matm_N20*gmolN2+O(2)*gmolO2+Matm_Ar0*gmolAr+Mch4(2)*gmolCH4) - pCO2(2)/1d6
     c_ = -(Matm_N20+O(2)+Matm_Ar0+Mch4(2)) * pCO2(2)/1d6
@@ -1007,44 +1024,44 @@
                    ,RUNsil_rnd(Imc),CPanoxic_rnd(Imc),dOLR_rnd(Imc),dTOA_rnd(Imc)
       Go to 9998
     End If
-!
-!-----------------!
-! Isotopic values !
-!-----------------!
-  ! d13C of an ocean-atmosphere system
+
+!===================!
+!  ISOTOPIC VALUES  !
+!===================!
+!  d13C of an ocean-atmosphere system
     delAc(2) = delAc(1) + dt*((delGc(1)-delAc(1))*(Worg+Fmorg)    &
                              +(delCc(1)-delAc(1))*(Wcarb+Fmcarb)  &
                              -(delatmc(1)-DelP-delAc(1))*BtCorg   &
                              -(d13C(1)-DelC-delAc(1))*Bcorg       &
                              -(d13C(1)-delAc(1))*Bcarb)/A(1)
-  ! d13C of crustal organic C
+!  d13C of crustal organic C
     delGc(2) = delGc(1) + dt*((delAtmc(1)-DelP-delGc(1))*Btcorg+(d13C(1)-DelC-delGc(1))*Bcorg)/G(1)
-  ! d13C of crustal carbonate
+!  d13C of crustal carbonate
     delCc(2) = delCc(1) + dt*((d13C(1)-delCc(1))*Bcarb)/C(1)
-  ! 
+   
     delOc(2) = delAc(2) + phi*(9483d0/Tk-23.89d0)
     delAtmc(2) = delAc(2) + (phi-1d0) * (9483d0/Tk-23.89d0)
     d13C(2) = delOc(2) + 15.10d0 - 4232d0/Tk + 0.9d0
-  ! Isotopic fractionation
+!  Isotopic fractionation
     EpsCO2 = -9d0 / RCO2**0.5d0
     EpsO2 = J * (O(2)/O0-1d0)
     DelC = DelCmax+EpsCO2+EpsO2
-  ! d13C of burying organic C
+!  d13C of burying organic C
     d13Corg(2) = d13C(2) - DelC
-  ! d34S of seawater sulfate
+!  d34S of seawater sulfate
     d34S(2) = d34S(1) + dt*((delGYPs(1)-d34S(1))*Wgyp+(delPYRs(1)-d34S(1))*Wpyr+DelS*Bpyr)/S(1)
-  ! d34S of crustal pyrite
+!  d34S of crustal pyrite
     delPYRs(2) = delPYRs(1) + dt*(d34S(1)-DelS-delPYRs(1))*Bpyr/PYR(1)
-  ! d34S of crustal gypsum
+!  d34S of crustal gypsum
     delGYPs(2) = delGYPs(1) + dt*(d34S(1)-delGYPs(1))*Bgyp/GYP(1)
-  ! Isotopic fractionation
+!  Isotopic fractionation
     DelS = DelS0
-  ! d34S of burying pyrite
+!  d34S of burying pyrite
     d34Spyr(2) = d34S(2) - DelS
-!
-!----------!
-! Lifespan !
-!----------!
+
+!============!
+!  LIFESPAN  !
+!============!
     If((sTime >= 0d0).and.(Ihuman3 == 0).and.(mO2(2) < 0.1d0)) then
       thuman3 = sTime
       Ihuman3 = Ihuman3 + 1
@@ -1124,10 +1141,10 @@
                    ,-sumJred_10p/Lifespan10p_success/1d18                                                     &
                    ,sumJred_10PAL,sumJred_1PAL,sumJred_01PAL,sumJred_16p,sumJred_18p,sumJred_10p
     End If
-!
-!---------!
-! Recycle !
-!---------!
+
+!===========!
+!  RECYCLE  !
+!===========!
     P(1) = P(2)
     N(1) = N(2)
     O(1) = O(2)
@@ -1159,10 +1176,10 @@
     pCH4(1) = pCH4(2)
     m_CH4(1) = m_CH4(2)
     mCO2(1) = mCO2(2)
-!
-!---------------!
-! output        !
-!---------------!
+
+!==========!
+!  OUTPUT  !
+!==========!
     If(Ioutput == 1) then
       Write(*,*) Int(sTime/1d6),' Ma: fO2=',mO2(2)*100d0,' (%)'
       If(sTime >= 0d0) then
@@ -1229,10 +1246,10 @@
     Close(8)
 
     End Do
-!
-!----------!
-!  Format  !
-!----------!
+
+!==========!
+!  FORMAT  !
+!==========!
     707  Format(7E13.4E2)
     710  Format(10E13.4E2)
     716  Format(16E13.4E2)
@@ -1277,13 +1294,14 @@
     918  Format(I3,17E13.4E2)
     919  Format(I3,18E13.4E2)
     920  Format(I3,19E13.4E2)
-!
+
  9999 Continue
-!
-!-------------!
-!  Functions  !
-!-------------!
+
+!=============!
+!  FUNCTIONS  !
+!=============!
     CONTAINS
+
 ! TOA_low
     FUNCTION TOA_low(albedo,Temp,pCO2bar,dTOA)
       USE Constants
@@ -1294,6 +1312,7 @@
                 + z7*mu*pCO2bar + z8*albedo*mu + z9*albedo*Temp + z10*mu*Temp + z11*pCO2bar*Temp  &
                 + z12*albedo**2d0 + z13*Temp**2d0 + z14*pCO2bar**2d0 + z15*mu**2d0)*(1d0+dTOA)
     End FUNCTION TOA_low
+
 ! TOA_high
     FUNCTION TOA_high(albedo,Temp,pCO2bar,dTOA)
       USE Constants
@@ -1304,6 +1323,7 @@
                 + zz7*mu*pCO2bar + zz8*albedo*mu + zz9*albedo*Temp + zz10*mu*Temp + zz11*pCO2bar*Temp  &
                 + zz12*albedo**2d0 + zz13*Temp**2d0 + zz14*pCO2bar**2d0 + zz15*mu**2d0)*(1d0+dTOA)
     End FUNCTION TOA_high
+
 ! jOLR
     FUNCTION jOLR(pln,Temp,dOLR)
       USE Constants
@@ -1316,6 +1336,7 @@
             + x16*pln**3d0*Temp**3d0 + x17*pln**4d0 + x18*pln**4d0*Temp + x19*pln**4d0*Temp**2d0      &
             + x20*pln**4d0*Temp**3d0)*(1d0+dOLR)
     End FUNCTION jOLR
+
 ! radforce_CH4
     FUNCTION radforce_CH4(m_CH4)
       USE Constants
@@ -1329,6 +1350,7 @@
         radforce_CH4 = m3 + m4*dlog(m_CH4(1)/2.5d-6) + m5*(dlog(m_CH4(1)/2.5d-6))**2d0
       End If
     End FUNCTION radforce_CH4
+
 ! albedo
     FUNCTION albedo_T(Temp)
       USE Constants
@@ -1343,6 +1365,7 @@
         albedo_T = a00
       End If
     End FUNCTION albedo_T
+
 ! lnK0
     FUNCTION lnK0(Temp)
       USE Constants
@@ -1352,6 +1375,7 @@
       lnK0 = -60.2409d0 + 93.4517d0*(100d0/Temp) + 23.3585d0*dlog(Temp/100d0)  &
              + Sal*(0.023517d0-0.023656d0*Temp/100d0+0.0047036d0*(Temp/100d0)**2d0)
     End FUNCTION lnK0
+
 ! logK1
     FUNCTION logK1(Temp)
       USE Constants
@@ -1360,6 +1384,7 @@
       double precision, Intent(IN) :: Temp
       logK1 = 6.2008d1 - 3.6707d3/Temp - 9.7944d0*dlog(Temp) + 0.0118d0*Sal - 1.16d-4*Sal*Sal
     End FUNCTION logK1
+
 ! logK2
     FUNCTION logK2(Temp)
       USE Constants
@@ -1368,6 +1393,7 @@
       double precision, Intent(IN) :: Temp
       logK2 = -4.777d0 - 1.3947d3/Temp + 1.84d-2*Sal - 1.18d-4*Sal*Sal
     End FUNCTION logK2
+
 ! lnKspCal
     FUNCTION lnKspCal(Temp)
       USE Constants
@@ -1377,7 +1403,8 @@
                  + 7.1595d1*dlog10(Temp) + (-7.7712d-1+2.8426d-3*Temp+178.34d0/Temp)*dsqrt(Sal)  &
                  - 7.711d-2*Sal + 4.1249d-3*Sal*dsqrt(Sal)
     End FUNCTION lnKspCal
-! ignition factor
+
+! Ignition factor
     FUNCTION ignit(mO2)
       USE Constants
       double precision:: ignit
@@ -1391,6 +1418,7 @@
         ignit = 5d0
       End If
     End FUNCTION ignit
+
 ! fTmarine
     FUNCTION fTmarine(Tc,Tref)
       USE Constants
@@ -1406,15 +1434,16 @@
           fTmarine = 0d0
         End If
     End FUNCTION fTmarine
-!
-!
+
     End Program LIFESPAN
 !
-!----------------------------------------------------------------------------------------------------------------!
-!----------------------------------------------------------------------------------------------------------------!
-!----------------------------------------------------------------------------------------------------------------!
-!----------------------------------------------------------------------------------------------------------------!
-  Subroutine RANDOM(nG_rnd,mG_rnd,aG_rnd,tauG_rnd,aR_rnd,tauR_rnd,JsbdCorg0_rnd                                 &
+!________________________________________________________________________________________________________________!
+!________________________________________________________________________________________________________________!
+!                                                                                                                !
+!   SUBROUTINE                                                                                                   !
+!________________________________________________________________________________________________________________!
+!________________________________________________________________________________________________________________!
+    Subroutine RANDOM(nG_rnd,mG_rnd,aG_rnd,tauG_rnd,aR_rnd,tauR_rnd,JsbdCorg0_rnd                               &
                    ,JsbdSpyr0_rnd,JsbdFeox0_rnd,JsbdCarb0_rnd,JsbdSgyp0_rnd,JmanC0_rnd,JmanS0_rnd,JmanRed0_rnd  &
                    ,Corg0_rnd,Spyr0_rnd,Carb0_rnd,Sgyp0_rnd,fUV_rnd,Tref_rnd,Tref_land_rnd,LIFE_rnd             &
                    ,FERT_rnd,ACT_rnd,Pmin_rnd,RUNsil_rnd,CPanoxic_rnd,dOLR_rnd,dTOA_rnd)
@@ -1433,122 +1462,122 @@
     double precision:: LIFE_rnd(resample),FERT_rnd(resample),ACT_rnd(resample)
     double precision:: Pmin_rnd(resample),RUNsil_rnd(resample),CPanoxic_rnd(resample)
     double precision:: dOLR_rnd(resample),dTOA_rnd(resample)
-!
+
 ! Random number !
     Call random_seed(size=seedsize)
     allocate(seed(seedsize))
     Call system_clock(count=clock)
     seed = clock
     Call random_seed(put=seed)
-!
+
 !-----------------------!
     Do I = 1, resample  !
 !-----------------------!
-    ! nG: 0-0.73
+!  nG: 0-0.73
       Call random_number(rnd1)
       nG_rnd(I) = 0.73d0*rnd1
       !nG_rnd(I) = 0.73d0
-    ! mG: 1-2
+!  mG: 1-2
       Call random_number(rnd1)
       mG_rnd(I) = 1d0 + 1d0*rnd1
       !mG_rnd(I) = 1d0
-    ! aG: 0-0.5
+!  aG: 0-0.5
       Call random_number(rnd1)
       aG_rnd(I) = 0.5d0*rnd1
       !aG_rnd(I) = 0.25d0
-    ! tG: 100-500 Myr
+!  tG: 100-500 Myr
       Call random_number(rnd1)
       tauG_rnd(I) = 100d0 + 400d0*rnd1
       !tauG_rnd(I) = 300d0
-    ! aR: 0-0.5
+!  aR: 0-0.5
       Call random_number(rnd1)
       aR_rnd(I) = 0.5d0*rnd1
       !aR_rnd(I) = 0.25d0
-    ! tR: 100-500 Myr
+!  tR: 100-500 Myr
       Call random_number(rnd1)
       tauR_rnd(I) = 100d0 + 400d0*rnd1
       !tauR_rnd(I) = 300d0
-    ! JsbdCorg0: 0-0.5 TmolC/yr
+!  JsbdCorg0: 0-0.5 TmolC/yr
       Call random_number(rnd1)
       JsbdCorg0_rnd(I) = 1d12*rnd1
       !JsbdCorg0_rnd(I) = 0.05d12
-    ! JsbdSpyr0: 0-1 TmolS/yr
+!  JsbdSpyr0: 0-1 TmolS/yr
       Call random_number(rnd1)
       JsbdSpyr0_rnd(I) = 1d12*rnd1
       !JsbdSpyr0_rnd(I) = 0.2d12
-    ! JsbdFeox0: 0-7 TmolFe/yr
+!  JsbdFeox0: 0-7 TmolFe/yr
       Call random_number(rnd1)
       JsbdFeox0_rnd(I) = 7d12*rnd1
       !JsbdFeox0_rnd(I) = 1d12
-    ! JsbdCarb0: 0-1.5 TmolC/yr
+!  JsbdCarb0: 0-1.5 TmolC/yr
       Call random_number(rnd1)
       JsbdCarb0_rnd(I) = 1.5d12*rnd1
       !JsbdCarb0_rnd(I) = 0.5d12
-    ! JsbdSgyp0: 0 TmolS/yr
+!  JsbdSgyp0: 0 TmolS/yr
       Call random_number(rnd1)
       !JsbdSgyp0_rnd(I) = 0.5d12*rnd1
       JsbdSgyp0_rnd(I) = 0d12*rnd1
       !JsbdSgyp0_rnd(I) = 0d12
-    ! JmanC0: 0-3 TmolC/yr
+!  JmanC0: 0-3 TmolC/yr
       Call random_number(rnd1)
       JmanC0_rnd(I) = 3d12*rnd1
       !JmanC0_rnd(I) = 1d12
-    ! JmanS0: 0-1 TmolS/yr
+!  JmanS0: 0-1 TmolS/yr
       Call random_number(rnd1)
       JmanS0_rnd(I) = 1d12*rnd1
       !JmanS0_rnd(I) = 1d12
-    ! JmanRed0: 0-1 Tmol/yr
+!  JmanRed0: 0-1 Tmol/yr
       Call random_number(rnd1)
       JmanRed0_rnd(I) = 1d12*rnd1
       !JmanRed0_rnd(I) = 0d12
-    ! Corg0: 750-1750 EmolC
+!  Corg0: 750-1750 EmolC
       Call random_number(rnd1)
       Corg0_rnd(I) = (750d0 + 1000d0*rnd1)*1d18
       !Corg0_rnd(I) = 1250d18
-    ! Spyr0: 100-300 EmolS
+!  Spyr0: 100-300 EmolS
       Call random_number(rnd1)
       Spyr0_rnd(I) = (100d0 + 200d0*rnd1)*1d18
       !Spyr0_rnd(I) = 200d18
-    ! Carb0: 4000-6000 EmolC
+!  Carb0: 4000-6000 EmolC
       Call random_number(rnd1)
       Carb0_rnd(I) = (4000d0 + 2000d0*rnd1)*1d18
       !Carb0_rnd(I) = 5000d18
-    ! Sgyp0: 100-300 EmolS
+!  Sgyp0: 100-300 EmolS
       Call random_number(rnd1)
       Sgyp0_rnd(I) = (100d0 + 200d0*rnd1)*1d18
       !Sgyp0_rnd(I) = 200d18
-    ! fUV: 10^-2.5 - 10^-1.5
+!  fUV: 10^-2.5 - 10^-1.5
       Call random_number(rnd1)
       fUV_rnd(I) = 10d0**(-1.5d0 - 1d0*rnd1)
       !fUV_rnd(I) = 10d0**(-1d0)
-    ! Tref: 1400-7000K
+!  Tref: 1400-7000K
       Call random_number(rnd1)
       Tref_rnd(I) = 1400d0 + 5600d0*rnd1
-    ! Tref_land: 25-35C
+!  Tref_land: 25-35C
       Call random_number(rnd1)
       Tref_land_rnd(I) = 25d0 + 10d0*rnd1
-    ! LIFE: 0.1-0.4
+!  LIFE: 0.1-0.4
       Call random_number(rnd1)
       LIFE_rnd(I) = 0.1d0 + 0.3d0*rnd1
-    ! FERT: 0.2-0.6
+!  FERT: 0.2-0.6
       Call random_number(rnd1)
       FERT_rnd(I) = 0.2d0 + 0.4d0*rnd1
-    ! ACT: 0.045-0.135
+!  ACT: 0.045-0.135
       Call random_number(rnd1)
       ACT_rnd(I) = 0.045d0 + 0.09d0*rnd1
-    ! Pmin: 1-10 ppmv
+!  Pmin: 1-10 ppmv
       Call random_number(rnd1)
        Pmin_rnd(I) = 1d0 + 9d0*rnd1
-    ! RUNsil: 0.025-0.045
+!  RUNsil: 0.025-0.045
       Call random_number(rnd1)
       RUNsil_rnd(I) = 0.025d0 + 0.02d0*rnd1
-    ! CPanoxic: 1x-20xCPoxic
+!  CPanoxic: 1x-20xCPoxic
       Call random_number(rnd1)
       CPanoxic_rnd(I) = CPoxic * (1d0 + 19d0*rnd1)
 !-----------------------!
     End Do              !
 !-----------------------!
-    ! OLR: Outgoing-Longwave-Radiation
+!  OLR: Outgoing-Longwave-Radiation
     Do I = 1, resample/2
       Call random_number(rnd1)
       Call random_number(rnd2)
@@ -1561,7 +1590,7 @@
 !      dOLR_rnd(2*I-1) = 0d0
 !      dOLR_rnd(2*I)   = 0d0
     End Do
-    ! TOA: Top-of-Atmosphere 
+! TOA: Top-of-Atmosphere 
     Do I = 1, resample/2
       Call random_number(rnd1)
       Call random_number(rnd2)
@@ -1577,9 +1606,9 @@
 
     Return
   End Subroutine RANDOM
-!
-!----------------------------------------------------------------------------------------------------------------!
-!----------------------------------------------------------------------------------------------------------------!
+
+!________________________________________________________________________________________________________________!
+!________________________________________________________________________________________________________________!
   Subroutine SETUP(Imc,JsbdCorg0,JsbdSpyr0,JsbdCarb0,JsbdSgyp0,JmanC0,JmanS0,JmanRed0 &
                   ,JsbdCorg0_rnd,JsbdSpyr0_rnd,JsbdCarb0_rnd,JsbdSgyp0_rnd            &
                   ,JmanC0_rnd,JmanS0_rnd,JmanRed0_rnd                                 &
@@ -1607,7 +1636,7 @@
     double precision:: Fmcarb0,Worg0,Bgyp0,Bpyr0
     double precision:: aG,aR,tauG,tauR,nG,mG,fUV,Tref,Tref_land,LIFE,FERT,ACT
     double precision:: Pmin,Kp,RUNsil,CPanoxic,dOLR,dTOA
-!
+
   ! all.dat
     Write(10,128) nG_rnd(Imc),mG_rnd(Imc),aG_rnd(Imc),tauG_rnd(Imc),aR_rnd(Imc),tauR_rnd(Imc)    &
                  ,JsbdCorg0_rnd(Imc),JsbdSpyr0_rnd(Imc),JsbdCarb0_rnd(Imc),JsbdSgyp0_rnd(Imc)    &
@@ -1616,21 +1645,21 @@
                  ,fUV_rnd(Imc),Tref_rnd(Imc),Tref_land_rnd(Imc)                                  &
                  ,LIFE_rnd(Imc),FERT_rnd(Imc),ACT_rnd(Imc),Pmin_rnd(Imc),RUNsil_rnd(Imc)         &
                  ,CPanoxic_rnd(Imc),dOLR_rnd(Imc),dTOA_rnd(Imc)
-  ! Subduction flux
+!  Subduction flux
     JsbdCorg0 = JsbdCorg0_rnd(Imc)
     JsbdSpyr0 = JsbdSpyr0_rnd(Imc)
     JsbdCarb0 = JsbdCarb0_rnd(Imc)
     JsbdSgyp0 = JsbdSgyp0_rnd(Imc)
-  ! Mantle degassing flux
+!  Mantle degassing flux
     JmanC0    = JmanC0_rnd(Imc)
     JmanS0    = JmanS0_rnd(Imc)
     JmanRed0  = JmanRed0_rnd(Imc)
-  ! Other fluxes determined based on mass-balance
+!  Other fluxes determined based on mass-balance
     Fmcarb0 = Bcarb0 - Wcarb0 - JsbdCarb0           ! CO2 degassing via carbonate metamorphism
     Worg0   = BtCorg0 + Bcorg0 - Fmorg0 - JsbdCorg0 ! Oxidative weathering of organic C
     Bgyp0   = Wgyp0 + JsbdSgyp0                     ! Gypsum burial
     Bpyr0   = Wpyr0 + JsbdSpyr0                     ! Pyrite burial
-  ! Other uncertain parameters
+!  Other uncertain parameters
     aG        = aG_rnd(Imc)
     aR        = aR_rnd(Imc)
     tauG      = tauG_rnd(Imc)
@@ -1649,14 +1678,14 @@
     CPanoxic  = CPanoxic_rnd(Imc)
     dOLR      = dOLR_rnd(Imc)
     dTOA      = dTOA_rnd(Imc)
-!
+
 128 Format(28E13.4E2)
-!
+
     Return
   End Subroutine SETUP
-!
-!----------------------------------------------------------------------------------------------------------------!
-!----------------------------------------------------------------------------------------------------------------!
+
+!________________________________________________________________________________________________________________!
+!________________________________________________________________________________________________________________!
   Subroutine INIT(Imc,CPland,CNorg,Tk,Tc,DelP,Bcarb,f_H2O,Jesc_H2O,P,N,O,A,G,C,S,PYR,GYP,CAL,ALK   &
                  ,Corg0_rnd,Carb0_rnd,Spyr0_rnd,Sgyp0_rnd,P_success,N_success,O_success,A_success  &
                  ,G_success,C_success,S_success,PYR_success,GYP_success,CAL_success,ALK_success    &
@@ -1720,7 +1749,7 @@
 
 ! Time step [yr]
     dt = 1d0
-!
+
     CPland = CPland0        ! Initial value of C/P of terrestrial biomass
     CNorg = CNorg0          ! Initial value of N/P
     Tk = Tk0                ! Initial value of surface temp. [K]
@@ -1740,7 +1769,7 @@
     GYP(1) = Sgyp0_rnd(Imc) ! Crustal gypsum S
     CAL(1) = CAL0           ! Calcium
     ALK(1) = ALK0*4d0       ! Alkalinity
-!
+
     P_success(1) = P0
     N_success(1) = N0
     O_success(1) = O0
@@ -1761,7 +1790,7 @@
     JmanRed_success(1) = JmanRed0
     GRBaos_success(1) = 0d0
     GRBsurf_success(1) = 0d0
-!
+
     delCc(1) = 0.4d0
     delGc(1) = delCc(1) - DelC0
     delAtmc(1) = DelP0 + DelC0 - delCc(1) + 2d0*delGc(1)
@@ -1838,7 +1867,7 @@
     delta = O(1) / (O(1)+dd)
     Tk = 300d0
     fco2limit = 1d0
-!
+
     pO2_success(1) = pO2(1)
     mO2_success(1) = mO2(1)
     pCH4_success(1) = pCH4(1)
@@ -1849,7 +1878,7 @@
     d34Spyr_success(1) = d34Spyr(1)
     d13C_success(1) = d13C(1)
     d13Corg_success(1) = d13Corg(1)
-!
+
     Tc_success(1) = 20d0
     Tk_success(1) = 293.15d0
     pH_success(1) = 8d0
@@ -1859,11 +1888,11 @@
     Jesc_H2O_success(1) = Jesc_H2O
     Jesc_CH4_success(1) = 2d0*fesc*pCH4(1)
     t_ocn_success(1) = MocnH2O/Jesc_H2O
-!
+
     Patm = 1d0
     Matm_mol = Matm_N20 + O(1) + Matm_Ar0 + pCO2(1)/1d6*Matm_mol0 + Mch4(1)
     write(*,*) 'Matm_CO20 =',Matm_CO20,' mol'
-!
+
     DOA_success(1) = DOA0
     Patm_success(1) = 1d0
     Sun_success(1) = Sun0
@@ -1904,7 +1933,7 @@
     go2_success(1) = 1d0
     gch4_success(1) = 0d0
     Jch4t_success(1) = 0d12
-!
+
     thuman    = 9999d0
     thuman2   = 9999d0
     thuman3   = 9999d0
@@ -1933,7 +1962,7 @@
     sumGRBexo = 0d0
     sumJman   = 0d0
     sumJsbd   = 0d0
-!
+
      Time = -600d6
     sTime = -600d6
     Ij  = 0
@@ -1942,10 +1971,10 @@
 
     Return
   End Subroutine INIT
-!
-!----------------------------------------------------------------------------------------------------------------!
-!----------------------------------------------------------------------------------------------------------------!
-  Subroutine PHOTOCHEM(pO2,pCH4,phi_o2,phi_ch4,kch4ox_6,kch4ox_5,kch4ox_4,kch4ox_3,kch4ox_23,kch4ox)
+
+!________________________________________________________________________________________________________________!
+!________________________________________________________________________________________________________________!
+    Subroutine PHOTOCHEM(pO2,pCH4,phi_o2,phi_ch4,kch4ox_6,kch4ox_5,kch4ox_4,kch4ox_3,kch4ox_23,kch4ox)
     USE Constants
     Implicit none
     double precision:: pO2(2),pCH4(2),phi_o2,phi_ch4
@@ -1996,9 +2025,9 @@
       kch4ox = kch4ox_23
     End If
     kch4ox = 10d0**kch4ox
-!
+
     Return
   End Subroutine PHOTOCHEM
-!
-!----------------------------------------------------------------------------------------------------------------!
-!----------------------------------------------------------------------------------------------------------------!
+
+!________________________________________________________________________________________________________________!
+!________________________________________________________________________________________________________________!
